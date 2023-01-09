@@ -19,7 +19,8 @@ pipeline {
 	
 				}
 			}
-		} post {
+		} 
+		post {
 			always {
 				echo "Run always"
 			}
