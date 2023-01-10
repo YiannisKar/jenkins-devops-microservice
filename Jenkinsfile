@@ -8,7 +8,7 @@ pipeline {
 		}
 		
 		stages {
-			stage('Build') {
+			stage('Checkout') {
 				steps {
 					// sh 'node --version'
 					sh 'mvn --version'
@@ -20,20 +20,21 @@ pipeline {
 					echo "JOB_NAME - $env.JOB_NAME"
 					echo "BUILD_TAG - $env.BUILD_TAG"
 					echo "BUILD_URL - $env.BUILD_URL"
-
-
+				}
+			}
+			stage('Compile') {
+				steps {
+					sh "mv clean compile"
 				}
 			}
 			stage('Test') {
 				steps {
-					echo "Test"
-	
+					sh "mvn test"	
 				}
 			}
 			stage('Integration Test') {
 				steps {
-					echo "IntegrationTest"
-	
+					sh 'mvn failsafe:integration-test failsafe:verify'
 				}
 			}
 		} 
